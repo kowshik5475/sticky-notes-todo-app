@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tasks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="board">
+
+  <header class="board__header">
+    <h1 class="board__title">Today's stack</h1>
+    <div class="counter" id="counter" aria-live="polite">0 left</div>
+  </header>
+
+  <form class="add-form" id="addForm" autocomplete="off">
+    <input
+      type="text"
+      id="todoInput"
+      class="add-form__input"
+      placeholder="Add something to do…"
+      maxlength="120"
+    >
+    <button type="submit" class="add-form__btn">Add</button>
+  </form>
+
+  <div class="filters" id="filters" role="group" aria-label="Filter tasks">
+    <button class="filter" data-filter="all" aria-pressed="true">All</button>
+    <button class="filter" data-filter="active" aria-pressed="false">Active</button>
+    <button class="filter" data-filter="completed" aria-pressed="false">Done</button>
+  </div>
+
+  <ul class="list" id="todoList"></ul>
+
+  <p class="empty" id="emptyState" hidden>Nothing here. Add a task above to get started.</p>
+
+  <footer class="board__footer">
+    <button class="clear-btn" id="clearCompleted">Clear completed</button>
+  </footer>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

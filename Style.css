@@ -1,0 +1,379 @@
+:root {
+  --board: #D8D2C4;
+  --board-shadow: #C4BDAD;
+
+  --paper-yellow: #DCCD9E;
+  --paper-sage: #B6BFA8;
+  --paper-rose: #D2B4A6;
+  --paper-blue: #AAB7C2;
+
+  --ink: #4A4540;
+  --ink-soft: #6B6459;
+  --tape: #E8E2D3;
+  --tape-edge: #C9C2B0;
+  --done-line: #9C9587;
+
+  --font-hand: "Kalam", cursive;
+  --font-label: "Space Grotesk", system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--board);
+  background-image:
+    radial-gradient(circle at 20% 30%, var(--board-shadow) 0%, transparent 35%),
+    radial-gradient(circle at 80% 70%, var(--board-shadow) 0%, transparent 35%);
+  font-family: var(--font-label);
+  color: var(--ink);
+  padding: 24px;
+}
+
+.board {
+  width: 100%;
+  max-width: 480px;
+  padding: 20px;
+}
+
+.board__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  padding: 0 6px;
+}
+
+.board__title {
+  font-family: var(--font-hand);
+  font-weight: 700;
+  font-size: 2rem;
+  margin: 0;
+  color: var(--ink);
+  transform: rotate(-1deg);
+}
+
+/* Counter looks like a torn paper tag */
+.counter {
+  font-family: var(--font-label);
+  font-size: 0.78rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-soft);
+  background: var(--tape);
+  border: 1px solid var(--tape-edge);
+  border-radius: 3px;
+  padding: 5px 12px;
+  transform: rotate(2deg);
+  white-space: nowrap;
+  box-shadow: 1px 2px 3px rgba(0,0,0,0.08);
+}
+
+/* Add form styled like a blank note */
+.add-form {
+  display: flex;
+  gap: 0;
+  margin-bottom: 22px;
+  background: var(--paper-yellow);
+  border-radius: 4px;
+  padding: 14px;
+  box-shadow: 2px 4px 8px rgba(0,0,0,0.12);
+  transform: rotate(-0.5deg);
+}
+
+.add-form__input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px dashed rgba(74,69,64,0.3);
+  padding: 4px 6px;
+  color: var(--ink);
+  font-family: var(--font-hand);
+  font-size: 1.15rem;
+  outline: none;
+}
+
+.add-form__input::placeholder {
+  color: var(--ink-soft);
+  opacity: 0.7;
+}
+
+.add-form__input:focus-visible {
+  border-bottom-color: var(--ink-soft);
+}
+
+.add-form__btn {
+  font-family: var(--font-label);
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: var(--ink);
+  color: var(--paper-yellow);
+  border: none;
+  border-radius: 3px;
+  padding: 8px 16px;
+  margin-left: 12px;
+  cursor: pointer;
+  transition: transform 0.1s ease, filter 0.15s ease;
+}
+
+.add-form__btn:hover {
+  filter: brightness(1.15);
+}
+
+.add-form__btn:active {
+  transform: scale(0.97);
+}
+
+.add-form__btn:focus-visible,
+.filter:focus-visible,
+.clear-btn:focus-visible {
+  outline: 2px dashed var(--ink-soft);
+  outline-offset: 2px;
+}
+
+/* Filters look like small label stickers */
+.filters {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  padding: 0 6px;
+}
+
+.filter {
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: var(--tape);
+  border: 1px solid var(--tape-edge);
+  color: var(--ink-soft);
+  border-radius: 3px;
+  padding: 5px 12px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: 1px 2px 3px rgba(0,0,0,0.06);
+}
+
+.filter:hover {
+  color: var(--ink);
+  border-color: var(--ink-soft);
+}
+
+.filter[aria-pressed="true"] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--tape);
+}
+
+/* Task list - sticky notes scattered slightly */
+.list {
+  list-style: none;
+  margin: 0 0 8px 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.task {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 14px 14px 16px;
+  border-radius: 3px;
+  box-shadow: 2px 4px 8px rgba(0,0,0,0.12);
+  animation: enter 0.2s ease;
+  position: relative;
+}
+
+/* Rotate alternating notes slightly, and color-cycle */
+.list .task:nth-child(4n+1) { background: var(--paper-yellow); transform: rotate(-0.8deg); }
+.list .task:nth-child(4n+2) { background: var(--paper-sage); transform: rotate(0.6deg); }
+.list .task:nth-child(4n+3) { background: var(--paper-rose); transform: rotate(-0.4deg); }
+.list .task:nth-child(4n+4) { background: var(--paper-blue); transform: rotate(0.9deg); }
+
+/* Washi tape strip on top of each note */
+.task::before {
+  content: "";
+  position: absolute;
+  top: -7px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  width: 46px;
+  height: 16px;
+  background: var(--tape);
+  border: 1px solid var(--tape-edge);
+  opacity: 0.85;
+}
+
+@keyframes enter {
+  from { opacity: 0; transform: translateY(-4px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* Custom checkbox - looks like a hand-drawn box */
+.task__checkbox {
+  position: relative;
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  margin: 2px 0 0 0;
+  appearance: none;
+  border: 2px solid var(--ink-soft);
+  border-radius: 4px;
+  background: rgba(255,255,255,0.35);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.task__checkbox:checked {
+  background: var(--ink);
+  border-color: var(--ink);
+}
+
+/* Hand-drawn checkmark */
+.task__checkbox:checked::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 1px;
+  width: 6px;
+  height: 11px;
+  border: solid var(--paper-yellow);
+  border-width: 0 2px 2px 0;
+  transform: rotate(40deg);
+  animation: check-in 0.18s ease;
+}
+
+@keyframes check-in {
+  from { transform: rotate(40deg) scale(0); }
+  to { transform: rotate(40deg) scale(1); }
+}
+
+.task__text {
+  flex: 1;
+  font-family: var(--font-hand);
+  font-size: 1.15rem;
+  line-height: 1.4;
+  word-break: break-word;
+  transition: color 0.15s ease;
+  padding-top: 1px;
+}
+
+.task--done .task__text {
+  color: var(--done-line);
+  text-decoration: line-through;
+  text-decoration-color: var(--done-line);
+}
+
+.task__edit-input {
+  flex: 1;
+  font-family: var(--font-hand);
+  font-size: 1.15rem;
+  color: var(--ink);
+  background: rgba(255,255,255,0.5);
+  border: none;
+  border-bottom: 1.5px dashed var(--ink-soft);
+  padding: 1px 4px;
+  outline: none;
+}
+
+.task__edit-input:focus-visible {
+  border-bottom-color: var(--ink);
+}
+
+.task__btn--save {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.task__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.task__btn {
+  background: transparent;
+  border: none;
+  color: var(--ink-soft);
+  font-family: var(--font-label);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  padding: 3px 6px;
+  border-radius: 4px;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.task__btn:hover {
+  background: rgba(74,69,64,0.1);
+  color: var(--ink);
+}
+
+.task__btn--delete:hover {
+  color: #A35D45;
+}
+
+/* Empty state */
+.empty {
+  text-align: center;
+  font-family: var(--font-hand);
+  font-size: 1.1rem;
+  color: var(--ink-soft);
+  padding: 28px 0;
+  margin: 0;
+}
+
+/* Footer */
+.board__footer {
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 6px;
+}
+
+.clear-btn {
+  background: transparent;
+  border: none;
+  font-family: var(--font-hand);
+  font-size: 1rem;
+  color: var(--ink-soft);
+  cursor: pointer;
+  padding: 4px 6px;
+  transition: color 0.15s ease;
+}
+
+.clear-btn:hover {
+  color: #A35D45;
+  text-decoration: underline wavy;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .task, .task__checkbox:checked::after {
+    animation: none;
+  }
+}
+
+/* Mobile */
+@media (max-width: 420px) {
+  .board__title {
+    font-size: 1.6rem;
+  }
+  .add-form {
+    padding: 12px;
+  }
+}
