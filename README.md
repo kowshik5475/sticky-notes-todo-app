@@ -28,10 +28,4 @@ A responsive Sticky Notes themed To-Do List application built using HTML, CSS, a
 - CRUD Operations
 - Client-Side Data Persistence
 
-## Live Demo
 
-Add your deployed link here.
-
-## Screenshots
-
-Add screenshots here.
